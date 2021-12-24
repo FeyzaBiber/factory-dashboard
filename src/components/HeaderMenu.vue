@@ -20,9 +20,14 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto mr-50">
-          <b-nav-item-dropdown text="Login" right>
-            <b-dropdown-item href="#">Register</b-dropdown-item>
-            <b-dropdown-item href="#">Log out</b-dropdown-item>
+          <b-nav-item-dropdown
+            v-model="loginname"
+            :text="`User ${loginname.toString()}`"
+            right
+          >
+            <b-dropdown-item href="/login">Login</b-dropdown-item>
+            <b-dropdown-item href="/register">Register</b-dropdown-item>
+            <b-dropdown-item href="/">Log out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -31,10 +36,22 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "HeaderMenu",
-  watch: {},
-  methods: {},
+  data: () => ({
+    loginname: "",
+  }),
+
+  watch: {
+    isLoginName(val) {
+      this.SET_LOGINNAME(val);
+    },
+  },
+  methods: {
+    ...mapMutations(["SET_LOGINNAME"]),
+  },
 };
 </script>
 
